@@ -2,7 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
     <title>80oo</title>
     <style>
         :root {
@@ -10,24 +11,40 @@
             --fg: #1a1a1a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
+        html, body {
+            width: 100%;
+            height: 100vh;
             background: var(--bg);
             color: var(--fg);
-            height: 100vh;
+            overflow: hidden; /* Блокируем скролл страницы */
+            -webkit-text-size-adjust: none; /* Запрет масштабирования текста на iOS */
+            text-size-adjust: none;
+        }
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
         pre {
-            font-family: Consolas;
-            font-size: clamp(0.7rem, 3vw, 1.2rem);
+            font-family: Consolas, monospace;
+            font-size: 14px; /* Фиксированный базовый размер для стабильности */
             line-height: 1.2;
             font-weight: 500;
-            animation: fadeIn 1s ease-out;
-            user-select: none;
             white-space: pre;
             text-align: center;
+            animation: fadeIn 1s ease-out;
+            
+            /* Защита от съезжания на мобильных */
+            overflow-x: auto;
+            min-width: fit-content;
+            padding: 20px;
+            
+            /* Скрываем полосу прокрутки для красоты */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        pre::-webkit-scrollbar {
+            display: none;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(8px); }
@@ -36,12 +53,16 @@
         @media (prefers-reduced-motion: reduce) {
             pre { animation: none; }
         }
+        /* Адаптация для очень маленьких экранов */
+        @media (max-width: 360px) {
+            pre { font-size: 12px; }
+        }
     </style>
 </head>
 <body>
     <pre>
 ╔═══╗ ╔═══╗ ╔═══╗ ╔═══╗
-║ 8 ║ ║ 0 ║ ║ O ║ ║ O ║
+║ 8 ║ ║ 0 ║ ║ 0 ║ ║ o ║
 ╚═══╝ ╚═══╝ ╚═══╝ ╚═══╝
     </pre>
 </body>
